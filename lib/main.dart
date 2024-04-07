@@ -45,7 +45,38 @@ class HomePageState extends State<HomePage> {
                 Text(
                   '$_str',
                   textScaleFactor: 1.3,
-                )
+                ),
+                TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Dialog Title'),
+                          content: Text('This is the content of the dialog.'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Close'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ).then((_) => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => NewPage()),
+                        )); // Navigate to new page after dialog is closed
+                  },
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -95,6 +126,18 @@ class HomePageState extends State<HomePage> {
         _str = 'Email: ${_ctrlEmail.value.text}\n';
         _str += 'Pswd: ${_ctrlPswd.value.text}\n';
         _str += 'Name: ${_ctrlName.value.text}\n';
-
       });
+}
+class NewPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('New Page'),
+      ),
+      body: Center(
+        child: Text('This is a new page'),
+      ),
+    );
+  }
 }
